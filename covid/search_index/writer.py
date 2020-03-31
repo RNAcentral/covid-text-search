@@ -53,8 +53,9 @@ def as_entry(result):
 def write_entries(results, handle):
     for result in results:
         entry = as_entry(result)
-        xml = str(etree.tostring(entry))
+        xml = etree.tostring(entry).decode('utf-8')
         handle.write(xml)
+        handle.write('\n')
 
 
 def write(results, handle):
@@ -70,6 +71,7 @@ def write(results, handle):
     handle.write(etree.tostring(E.description('a search index for COVID-2019 sequences')).decode())
     handle.write(etree.tostring(E.release('1.0')).decode())
     handle.write(etree.tostring(E.release_date(date.today().strftime('%d/%m/%Y'))).decode())
+    handle.write('\n')
 
     handle.write('<entries>')
     count = write_entries(results, handle)
