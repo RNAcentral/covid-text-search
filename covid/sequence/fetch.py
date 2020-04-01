@@ -21,7 +21,7 @@ from pathlib import Path
 from Bio import SeqIO
 from Bio import Entrez
 
-from . import utils
+import more_itertools as more
 
 
 SIZE = 200
@@ -39,7 +39,7 @@ def extract_ids(fasta):
 
 
 def query_ncbi(ids):
-    return Entrez.efetch(db='nucleotide', id=ids, rettype="gb", retmode="text")
+    return Entrez.efetch(db='nucleotide', id=list(ids), rettype="gb", retmode="text")
 
 
 def filename(directory, ids):
@@ -74,7 +74,7 @@ def fetch(fasta, directory: Path):
         return None
 
     with path.open('w') as output:
-        chunked = utils.grouper(ids, SIZE)
+        chunked = more.ichunked(ids, SIZE)
         for chunk in chunked:
             embl = query_ncbi(chunk)
             shutil.copyfileobj(embl, output)

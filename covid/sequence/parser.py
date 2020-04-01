@@ -21,13 +21,16 @@ from Bio import SeqIO
 def source_field(source, name, missing='unknown'):
     values = source.qualifiers.get(name, [])
     if len(values) == 0:
-        return 'unknown'
+        return missing
     assert len(values) == 1
     return values[0]
 
 
-def parse_date(raw):
-    date = dt.strptime(raw, r'%b-%Y')
+def parse_date(raw, missing=None):
+    try:
+        date = dt.strptime(raw, r'%b-%Y')
+    except:
+        return missing
     return dt.strftime(date, r'%B %Y')
 
 
@@ -37,7 +40,11 @@ def dates(source):
     ]
     data = {}
     for field in fields:
-        data[field] = parse_date(source_field(source, field))
+        raw = source_field(source, field, missing=None)
+        if raw:
+            value = parse_date(raw)
+            if value:
+                data[field] = value
     return data
 
 
@@ -58,10 +65,10 @@ def country(source):
     return location.split(':', 1)[0]
 
 
-def sequencing_method(record):
-    comments = record.annotations.get('structured_comment')
+def sequencing_method(record, missing='unknown'):
+    comments = record.annotations.get('structured_comment', {})
     assemblies =  comments.get('Assembly-Data', {})
-    return assemblies.get('Sequencing Technology', 'unknown')
+    return assemblies.get('Sequencing Technology', missing)
 
 
 def parse(handle):

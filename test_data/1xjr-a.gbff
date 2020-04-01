@@ -1,0 +1,32 @@
+LOCUS       1XJR_A                    47 bp    RNA     linear   VRL 01-FEB-2013
+DEFINITION  Chain A, S2m Rna.
+ACCESSION   1XJR_A
+VERSION     1XJR_A
+KEYWORDS    .
+SOURCE      Bat SARS coronavirus HKU3-13
+  ORGANISM  Bat SARS coronavirus HKU3-13
+            Viruses; ssRNA viruses; ssRNA positive-strand viruses, no DNA
+            stage; Nidovirales; Coronaviridae; Coronavirinae; Betacoronavirus.
+REFERENCE   1  (bases 1 to 47)
+  AUTHORS   Robertson,M.P., Igel,H., Baertsch,R., Haussler,D., Ares M,Jr. and
+            Scott,W.G.
+  TITLE     The structure of a rigorously conserved RNA element within the SARS
+            virus genome
+  JOURNAL   PLoS Biol. 3 (1), E5 (2005)
+   PUBMED   15630477
+REFERENCE   2  (bases 1 to 47)
+  AUTHORS   Robertson,M.P., Igel,H., Baertsch,R., Haussler,D., Ares,M. Jr. and
+            Scott,W.G.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (24-SEP-2004)
+COMMENT     The Structure Of A Rigorously Conserved Rna Element Within The Sars
+            Virus Genome.
+FEATURES             Location/Qualifiers
+     source          1..47
+                     /organism="Bat SARS coronavirus HKU3-13"
+                     /mol_type="other RNA"
+                     /db_xref="taxon:742000"
+ORIGIN      
+        1 ngagttcacc gaggccacgc ggagtacgat cgagggtaca gtgaatt
+//
+

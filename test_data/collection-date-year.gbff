@@ -1,0 +1,50 @@
+LOCUS       AB514459                 251 bp    RNA     linear   VRL 24-JUL-2016
+DEFINITION  Human coronavirus HKU1 ORF1b gene for RNA-dependent RNA polymerase,
+            partial cds, strain: PHL07-1518.
+ACCESSION   AB514459
+VERSION     AB514459.1
+KEYWORDS    .
+SOURCE      Human coronavirus HKU1 (HCoV-HKU1)
+  ORGANISM  Human coronavirus HKU1
+            Viruses; ssRNA viruses; ssRNA positive-strand viruses, no DNA
+            stage; Nidovirales; Coronaviridae; Coronavirinae; Betacoronavirus.
+REFERENCE   1
+  AUTHORS   Furuse,Y., Suzuki,A., Kishi,M., Galang,H.O., Lupisan,S.P.,
+            Olveda,R.M. and Oshitani,H.
+  TITLE     Detection of Novel Respiratory Viruses from Influenza-like Illness
+            in the Philippines
+  JOURNAL   Unpublished
+REFERENCE   2  (bases 1 to 251)
+  AUTHORS   Suzuki,A., Furuse,Y., Kishi,M., Galang,H.O., Lupisan,S.P.,
+            Olveda,R.M. and Oshitani,H.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (30-JUL-2009) Contact:Akira Suzuki Tohoku University
+            Graduate School of Medicine, Department of Virology; 2-1
+            Seiryo-machi, Aoba-ku, Sendai, Miyagi 980-8575, Japan
+FEATURES             Location/Qualifiers
+     source          1..251
+                     /organism="Human coronavirus HKU1"
+                     /mol_type="genomic RNA"
+                     /strain="PHL07-1518"
+                     /isolation_source="nasopharyngeal aspirate"
+                     /host="Homo sapiens"
+                     /db_xref="taxon:290028"
+                     /country="Philippines: Alabang, Muntinlupa"
+                     /collection_date="2007"
+     gene            <1..>251
+                     /gene="ORF1b"
+     CDS             <1..>251
+                     /gene="ORF1b"
+                     /codon_start=1
+                     /product="RNA-dependent RNA polymerase"
+                     /protein_id="BAI44143.1"
+                     /translation="TQINFKYAISAKNRARTVAGVSILSTMTGRMFHQKCLKSIAATR
+                     GVPVVIGTTKFYGGWDDMLRHLIKDVDNPVLMGWDYPKC"
+ORIGIN      
+        1 actcagataa attttaagta tgctattagt gctaagaata gagctcgtac tgttgcaggt
+       61 gtttccattc ttagtactat gacaggtcga atgtttcatc aaaaatgttt gaagagtata
+      121 gcagctactc gtggtgttcc tgttgttata ggaactacta aattttatgg tggctgggat
+      181 gatatgttac gccatcttat aaaggatgtt gacaaccctg ttcttatggg ttgggattac
+      241 cctaaatgcg a
+//
+

@@ -20,6 +20,8 @@ import pytest
 
 @pytest.mark.parametrize('filename,count', [
     ('test_data/example1.gbff', 1),
+    ('test_data/1xjr-a.gbff', 1),
+    ('test_data/collection-date-year.gbff', 1),
 ])
 def test_can_parse_initial_example(filename, count):
     with open(filename, 'r') as raw:
@@ -46,5 +48,27 @@ def test_can_parse_initial_example():
                 'country': 'Australia',
                 'location': 'Australia: Queensland',
                 'sequencing_method': 'Sanger dideoxy sequencing',
+            },
+        }
+
+
+def test_can_parse_without_dates():
+    with open('test_data/1xjr-a.gbff', 'r') as raw:
+        data =  list(parser.parse(raw))
+        assert data[0] == {
+            'id': '1XJR_A',
+            'name': '1XJR_A',
+            'description': 'Chain A, S2m Rna',
+            'dates': {},
+            'cross_references': [
+                {'key': '1XJR_A', 'name': 'ena'},
+                {'name': 'ncbi_taxonomy_id', 'key': '742000'},
+            ],
+            'additional_fields': {
+                'isolate': 'unknown',
+                'isolation_source': 'unknown',
+                'country': 'unknown',
+                'location': 'unknown',
+                'sequencing_method': 'unknown',
             },
         }
