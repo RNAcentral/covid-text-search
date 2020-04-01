@@ -76,3 +76,5 @@ def write(results, handle):
     handle.write('<entries>')
     count = write_entries(results, handle)
     handle.write('</entries>')
+    handle.write('</database>')
+
