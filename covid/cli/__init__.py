@@ -13,8 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+from pathlib import Path
+
 import click
 
+from covid.sequence import fetch
 from covid.sequence import parser
 from covid.search_index import writer
 
@@ -25,6 +28,13 @@ def cli():
     Command for dealing with generating COVID data.
     """
     pass
+
+
+@cli.command('fetch')
+@click.argument('fasta', type=click.File('r'))
+@click.argument('output', type=click.Path(dir_okay=True, file_okay=False))
+def cli_fetch(fasta, output):
+    fetch.fetch(fasta, Path(output))
 
 
 @cli.command('search-index')
