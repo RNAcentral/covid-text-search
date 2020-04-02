@@ -17,6 +17,10 @@ from datetime import datetime as dt
 
 from Bio import SeqIO
 
+POPULAR_SPECIES = set([
+     2697049,
+])
+
 
 def source_field(source, name, missing='unknown'):
     values = source.qualifiers.get(name, [])
@@ -71,6 +75,18 @@ def sequencing_method(record, missing='unknown'):
     return assemblies.get('Sequencing Technology', missing)
 
 
+def taxid(source):
+    xrefs = source.qualifiers.get('db_xref', [])
+    for xref in xrefs:
+        if xref.startswith('taxon'):
+            _, taxid = xref.split(':', 1)
+            return int(taxid)
+
+
+def popular_species(source):
+    return str(taxid(source) in POPULAR_SPECIES)
+
+
 def parse(handle):
     for record in SeqIO.parse(handle, 'genbank'):
         source = record.features[0]
@@ -87,5 +103,6 @@ def parse(handle):
                 'isolate': source_field(source, 'isolate'),
                 'isolation_source': source_field(source, 'isolation_source'),
                 'host': source_field(source, 'host'),
+                'popular_species': popular_species(source),
             }
         }
