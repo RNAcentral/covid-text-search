@@ -86,5 +86,6 @@ def parse(handle):
                 'sequencing_method': sequencing_method(record),
                 'isolate': source_field(source, 'isolate'),
                 'isolation_source': source_field(source, 'isolation_source'),
+                'host': source_field(source, 'host'),
             }
         }

@@ -48,6 +48,7 @@ def test_can_parse_initial_example():
                 'country': 'Australia',
                 'location': 'Australia: Queensland',
                 'sequencing_method': 'Sanger dideoxy sequencing',
+                'host': 'Homo sapiens',
             },
         }
 
@@ -70,5 +71,6 @@ def test_can_parse_without_dates():
                 'country': 'unknown',
                 'location': 'unknown',
                 'sequencing_method': 'unknown',
+                'host': 'unknown',
             },
         }
