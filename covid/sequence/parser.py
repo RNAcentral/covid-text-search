@@ -21,6 +21,12 @@ POPULAR_SPECIES = set([
      2697049,
 ])
 
+SEQUENCING_CORRECTIONS = {
+    'Sanger dideoxy sequencing; Illumina': 'Illumina; Sanger dideoxy sequencing',
+    'Illumian NextSeq 500': 'Illumina NextSeq 500',
+    'MGISEQ 2000': 'Illumina; MGISEQ 2000',
+}
+
 
 def source_field(source, name, missing='unknown'):
     values = source.qualifiers.get(name, [])
@@ -72,7 +78,8 @@ def country(source):
 def sequencing_method(record, missing='unknown'):
     comments = record.annotations.get('structured_comment', {})
     assemblies =  comments.get('Assembly-Data', {})
-    return assemblies.get('Sequencing Technology', missing)
+    raw = assemblies.get('Sequencing Technology', missing)
+    return SEQUENCING_CORRECTIONS.get(raw, raw)
 
 
 def taxid(source):

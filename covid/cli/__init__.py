@@ -20,6 +20,7 @@ import click
 from covid.sequence import fetch
 from covid.sequence import parser
 from covid.search_index import writer
+from covid.blast import fetch as blast
 
 
 @click.group()
@@ -29,10 +30,30 @@ def cli():
     """
     pass
 
+@cli.command('update')
+@click.option('--data', default='.', type=click.Path(dir_okay=True, file_okay=False))
+@click.argument('output', default='current.xml', type=click.File('w'))
+def cli_update(output, data=None):
+    dir = Path(data)
+    print(dir)
+    fasta = blast.fetch(dir)
+    print(fasta)
+    genbank = fetch.fetch(fasta, dir)
+    print(genbank)
+    data = parser.parse(genbank)
+    writer.write(data, output)
+
+
+
+@cli.command('blast-db')
+@click.argument('output', default='.', type=click.Path(dir_okay=True, file_okay=False))
+def cli_blast_db(output):
+    blast.fetch(Path(output))
+
 
 @cli.command('fetch')
 @click.argument('fasta', type=click.File('r'))
-@click.argument('output', type=click.Path(dir_okay=True, file_okay=False))
+@click.argument('output', default='.', type=click.Path(dir_okay=True, file_okay=False))
 def cli_fetch(fasta, output):
     fetch.fetch(fasta, Path(output))
 

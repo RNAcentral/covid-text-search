@@ -71,7 +71,7 @@ def fetch(fasta, directory: Path):
     path = filename(directory, ids)
     if path.exists():
         LOGGER.info("Dump file already exists, skipping")
-        return None
+        return path
 
     with path.open('w') as output:
         chunked = more.ichunked(ids, SIZE)
@@ -79,3 +79,4 @@ def fetch(fasta, directory: Path):
             embl = query_ncbi(chunk)
             shutil.copyfileobj(embl, output)
     validate(path, ids)
+    return path
