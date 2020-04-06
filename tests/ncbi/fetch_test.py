@@ -18,7 +18,7 @@ from pathlib import Path
 import pytest
 from Bio import SeqIO
 
-from covid.sequence import fetch
+from covid.ncbi import _fetch as fetch
 
 
 @pytest.mark.parametrize('filename,ans', [

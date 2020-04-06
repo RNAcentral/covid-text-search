@@ -99,6 +99,7 @@ def parse(handle):
         source = record.features[0]
         yield {
             'id': record.id,
+            'accession': record.id.split('.')[0],
             'name': record.id,
             'description': record.description,
             'dates': dates(source),

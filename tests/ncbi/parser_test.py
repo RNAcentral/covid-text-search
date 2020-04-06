@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from covid.sequence import parser
+from covid.ncbi import _parser as parser
 
 import pytest
 
@@ -33,6 +33,7 @@ def test_can_parse_initial_example():
         data =  list(parser.parse(raw))
         assert data[0] == {
             'id': 'MT111896.1',
+            'accession': 'MT111896',
             'name': 'MT111896.1',
             'description': 'Severe acute respiratory syndrome coronavirus 2 isolate SARS-CoV-2/QLD05/human/2020_FSS918/AUS ORF3a (orf3a) and envelope protein (E) genes, partial cds',
             'dates': {
@@ -59,6 +60,7 @@ def test_can_parse_without_dates():
         data =  list(parser.parse(raw))
         assert data[0] == {
             'id': '1XJR_A',
+            'accession': '1XJR_A',
             'name': '1XJR_A',
             'description': 'Chain A, S2m Rna',
             'dates': {},

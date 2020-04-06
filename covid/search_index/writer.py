@@ -50,15 +50,18 @@ def as_entry(result):
     )
 
 
-def write_entries(results, handle):
-    for result in results:
-        entry = as_entry(result)
+def write_entries(sequences, strains, handle):
+    for sequence in sequences:
+        extra = strains.get(sequence['id'], {})
+        sequence['additional_fields'].update(extra)
+
+        entry = as_entry(sequence)
         xml = etree.tostring(entry).decode('utf-8')
         handle.write(xml)
         handle.write('\n')
 
 
-def write(results, handle):
+def write(sequences, strains, output_handle):
     """
     This will create the required root XML element and place all the given
     XmlEntry objects as ElementTree.Element's in it. This then produces the
@@ -66,15 +69,14 @@ def write(results, handle):
     """
 
     # pylint: disable=no-member
-    handle.write('<database>')
-    handle.write(etree.tostring(E.name('COVID-2019')).decode())
-    handle.write(etree.tostring(E.description('a search index for COVID-2019 sequences')).decode())
-    handle.write(etree.tostring(E.release('1.0')).decode())
-    handle.write(etree.tostring(E.release_date(date.today().strftime('%d/%m/%Y'))).decode())
-    handle.write('\n')
+    output_handle.write('<database>')
+    output_handle.write(etree.tostring(E.name('COVID-2019')).decode())
+    output_handle.write(etree.tostring(E.description('a search index for COVID-2019 sequences')).decode())
+    output_handle.write(etree.tostring(E.release('1.0')).decode())
+    output_handle.write(etree.tostring(E.release_date(date.today().strftime('%d/%m/%Y'))).decode())
+    output_handle.write('\n')
 
-    handle.write('<entries>')
-    count = write_entries(results, handle)
-    handle.write('</entries>')
-    handle.write('</database>')
-
+    output_handle.write('<entries>')
+    count = write_entries(sequences, strains, output_handle)
+    output_handle.write('</entries>')
+    output_handle.write('</database>')
