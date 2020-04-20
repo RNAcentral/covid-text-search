@@ -35,7 +35,7 @@ def cli():
 @cli.command('update')
 @click.option('--data', default='data', type=click.Path(dir_okay=True, file_okay=False))
 @click.argument('nextstrain-metadata', default='data/nextstrain.tsv', type=click.File('r'))
-@click.argument('fasta_output', default='covid.fasta', type=click.Path())
+@click.argument('fasta_output', default='covid.fasta.gz', type=click.Path())
 @click.argument('output', default='current.xml', type=click.File('w'))
 def cli_update(nextstrain_metadata, fasta_output, output, data=None):
     dir = Path(data)
