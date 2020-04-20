@@ -13,6 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+import shutil
+import gzip
 from pathlib import Path
 
 import click
@@ -33,14 +35,18 @@ def cli():
 @cli.command('update')
 @click.option('--data', default='data', type=click.Path(dir_okay=True, file_okay=False))
 @click.argument('nextstrain-metadata', default='data/nextstrain.tsv', type=click.File('r'))
+@click.argument('fasta_output', default='covid.fasta', type=click.Path())
 @click.argument('output', default='current.xml', type=click.File('w'))
-def cli_update(nextstrain_metadata, output, data=None):
+def cli_update(nextstrain_metadata, fasta_output, output, data=None):
     dir = Path(data)
     fasta = blast.fetch(dir)
     genbank = ncbi.fetch(fasta, dir)
     sequences = ncbi.parse(genbank)
     strains = nextstrain.index(nextstrain_metadata)
     writer.write(sequences, strains, output)
+    with gzip.open(fasta_output, 'wb') as out:
+        with fasta.open('rb') as raw:
+            shutil.copyfileobj(raw, out)
 
 
 
