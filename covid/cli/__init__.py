@@ -37,17 +37,17 @@ def cli():
 @click.argument('nextstrain-metadata', default='data/nextstrain.tsv', type=click.File('r'))
 @click.argument('fasta_output', default='covid.fasta.gz', type=click.Path())
 @click.argument('output', default='current.xml', type=click.File('w'))
-def cli_update(nextstrain_metadata, fasta_output, output, data=None):
+@click.argument('note', type=click.File('w'))
+def cli_update(nextstrain_metadata, fasta_output, output, note, data=None):
     dir = Path(data)
     fasta = blast.fetch(dir)
     genbank = ncbi.fetch(fasta, dir)
     sequences = ncbi.parse(genbank)
     strains = nextstrain.index(nextstrain_metadata)
-    writer.write(sequences, strains, output)
+    writer.write(sequences, strains, output, note)
     with gzip.open(fasta_output, 'wb') as out:
         with fasta.open('rb') as raw:
             shutil.copyfileobj(raw, out)
-
 
 
 @cli.command('blast-db')
@@ -65,7 +65,8 @@ def cli_fetch(fasta, output):
 
 @cli.command('search-index')
 @click.argument('genbank', type=click.File('r'))
-@click.argument('output', type=click.File('a'))
-def search_index(genbank, output):
+@click.argument('output', type=click.File('w'))
+@click.argument('note', type=click.File('w'))
+def search_index(genbank, output, note):
     data = ncbi.parser.parse(genbank)
-    writer.write(data, output)
+    writer.write(data, output, note)

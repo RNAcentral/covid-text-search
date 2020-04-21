@@ -13,6 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+from datetime import date  as dt
+
 from lxml import etree
 from lxml.builder import E
 
@@ -61,7 +63,14 @@ def write_entries(sequences, strains, handle):
         handle.write('\n')
 
 
-def write(sequences, strains, output_handle):
+def write_notes(count, handle):
+    stamp = dt.strftime(dt.today(), "%d-%B-%Y")
+    handle.write("release=14\n")
+    handle.write("release_date=%s\n" % stamp)
+    handle.wrte("entries=%i\n" % count)
+
+
+def write(sequences, strains, output_handle, note_handle):
     """
     This will create the required root XML element and place all the given
     XmlEntry objects as ElementTree.Element's in it. This then produces the
@@ -80,3 +89,5 @@ def write(sequences, strains, output_handle):
     count = write_entries(sequences, strains, output_handle)
     output_handle.write('</entries>')
     output_handle.write('</database>')
+
+    write_notes(count, note_handle)
